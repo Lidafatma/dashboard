@@ -156,7 +156,9 @@ col_left, col_right = st.columns(2)
 with col_left:
     st.subheader("musim apa yang paling banyak disewa?")
     colors = ["#D3D3D3", "#D3D3D3", "#D3D3D3", "#90CAF9"]
-    fig, ax = plt.subplots(figsize=(8, 6))
+    
+    # Mengatur figsize agar pas dan seimbang (6, 5)
+    fig, ax = plt.subplots(figsize=(6, 5))
     sns.barplot(
         y="count_cr", 
         x="season",
@@ -164,22 +166,35 @@ with col_left:
         palette=colors,
         ax=ax
     )
-    ax.set_title("Grafik Antar Musim", loc="center", fontsize=16)
+    ax.set_title("Grafik Antar Musim", loc="center", fontsize=14, pad=12)
     ax.set_ylabel(None)
     ax.set_xlabel(None)
-    ax.tick_params(axis='x', labelsize=12)
-    ax.tick_params(axis='y', labelsize=12)
+    ax.tick_params(axis='x', labelsize=11)
+    ax.tick_params(axis='y', labelsize=11)
+    
+    # Menghapus margin berlebih agar grafik presisi
+    plt.tight_layout()
     st.pyplot(fig)
 
 with col_right:
     st.subheader("Perbandingan Customer yang Registered dengan casual")
-    labels = 'casual', 'registered'
+    labels = ['casual', 'registered']
     sizes = [18.8, 81.2]
     explode = (0, 0.1) 
 
-    fig1, ax1 = plt.subplots(figsize=(6, 6))
-    ax1.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%', colors=["#D3D3D3", "#90CAF9"],
-            shadow=True, startangle=90)
+    # Menggunakan figsize (6, 5) yang sama presisi dengan kolom kiri
+    fig1, ax1 = plt.subplots(figsize=(6, 5))
+    ax1.pie(
+        sizes, 
+        explode=explode, 
+        labels=labels, 
+        autopct='%1.1f%%', 
+        colors=["#D3D3D3", "#90CAF9"],
+        shadow=True, 
+        startangle=90,
+        textprops={'fontsize': 11} # Mengatur ukuran font teks label & persentase
+    )
     ax1.axis('equal')  
 
+    plt.tight_layout()
     st.pyplot(fig1)
